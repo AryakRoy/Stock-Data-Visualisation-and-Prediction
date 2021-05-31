@@ -7,10 +7,10 @@ class Sentiment_Analyzer:
     def __init__(self):
         self.finviz_url = r"https://finviz.com/quote.ashx?t="
 
-    def Analysis(ticker):
+    def Analysis(self,ticker):
         parsed_data = []
         news_dict = {}
-        url = finviz_url + ticker
+        url = self.finviz_url + ticker
         req = Request(url = url, headers = {'user-agent' : 'my-app'})
         response = urlopen(req)
         html = BeautifulSoup(response, 'html.parser')
@@ -27,9 +27,9 @@ class Sentiment_Analyzer:
                 time = date_data[0]
             news_dict[date].append([time, headers[index]])
             parsed_data.append([ date, time, headers[index]])   
-        return Sentiment(parsed_data)
+        return self.Sentiment(parsed_data)
 
-    def Sentiment(table):
+    def Sentiment(self,table):
         df = pd.DataFrame(table, columns = ['Date', 'Time', 'Headline'])
         vader = SentimentIntensityAnalyzer()
         pol_scores = []

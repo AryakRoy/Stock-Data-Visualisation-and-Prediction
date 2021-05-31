@@ -16,12 +16,12 @@ st.set_page_config(
 traverser = Traverse()
 sentiment_analyzer = Sentiment_Analyzer()
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def load_stock_data(ticker):
-    data_load_state.text("Loading Data...")
     data = yf.download(ticker,START,TODAY)
+    stock_data = yf.Ticker(ticker)
     data.reset_index(inplace=True)
-    return data
+    return (data, stock_data)
 
 @st.cache
 def load_stock_list():
@@ -38,9 +38,7 @@ This app retrieves the list of the **S&P 500** (from Wikepedia) and its correspo
 * **Python Libraries :** base64, pandas, numpy, streamlit, yfinance, matplotlib, plotly, sklearn, keras
 * **Data Source :** [Wikepedia](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies)      [Yahoo Finance](https://in.finance.yahoo.com/)         [finviz](https://finviz.com)
 """)
-
-container = st.beta_container()
-col1, col2 = container.beta_columns([5,5])
+st.write('---')
 st.sidebar.header("User Input Features")
 
 df = load_stock_list()
@@ -59,10 +57,14 @@ selected_stock = st.sidebar.selectbox("Select Stock",stocks)
 
 data = pd.DataFrame()
 if selected_stock != None:
-    data_load_state = st.text("Load Data")
-    data = load_stock_data(selected_stock)
-    data_load_state.text("Data Successfully Loaded")
-    col1.subheader(f"{selected_stock} Raw Data")
+    data, stock_details = load_stock_data(selected_stock)
+    string_logo = f"<img src={stock_details.info['logo_url']}>"
+    st.markdown(string_logo,unsafe_allow_html=True)
+    st.header(stock_details.info["longName"])
+    st.info(stock_details.info["longBusinessSummary"])
+    container = st.beta_container()
+    col1, col2 = container.beta_columns([5,5])
+    col1.subheader(f"Raw Data")
     col1.write(data.tail(50))
     traverser.traverse(selected_stock)
     def filedownload(df):
@@ -77,8 +79,12 @@ if data.empty == False:
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name="stock_close"))
         fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name="stock_open"))
-        fig.layout.update(title_text="Time Series Data", xaxis_rangeslider_visible=True,yaxis_title="USD $")
+        fig.layout.update(title_text="Time Series Chart", xaxis_rangeslider_visible=True,yaxis_title="USD $")
         col2.plotly_chart(fig)
     plot_raw_data()
 
+st.write('---')
 st.header("Prediction")
+if selected_stock != None:
+    sentiment_analysis_result = sentiment_analyzer.Analysis(selected_stock)
+st.write(sentiment_analysis_result)
