@@ -7,14 +7,17 @@ import pandas as pd
 import base64
 from traverse import Traverse
 from Stock_Sentiment_Analysis import Sentiment_Analyzer
+from prediction import Predictor
+
 st.set_page_config(
-    page_title="Stock Analytics App",
+    page_title="Stock Sensei",
     page_icon="📈",
     layout="wide",
 )
 
 traverser = Traverse()
 sentiment_analyzer = Sentiment_Analyzer()
+predictor = Predictor()
 
 @st.cache(allow_output_mutation=True)
 def load_stock_data(ticker):
@@ -47,8 +50,10 @@ sorted_sector_unique = sorted(df['GICS Sector'].unique())
 selected_sectors = st.sidebar.multiselect('Sector',sorted_sector_unique)
 df_selected_sectors = df[df['GICS Sector'].isin(selected_sectors)]
 st.sidebar.write(f"Companies : {df_selected_sectors.shape[0] or 0}")
-START =st.sidebar.date_input(label="Enter Start Date",value=date(2012,1,1))
+
+START =st.sidebar.date_input(label="Enter Start Date",value=date(2016,1,1))
 TODAY = date.today().strftime("%Y-%m-%d")
+
 if len(selected_sectors) != 0:
     stocks = df_selected_sectors.Symbol.values 
 else:
@@ -83,8 +88,23 @@ if data.empty == False:
         col2.plotly_chart(fig)
     plot_raw_data()
 
+@st.cache()
+def predict_price():
+    sentiment_analysis_result = sentiment_analyzer.Analysis(selected_stock)
+    if traverser.is_file_in_directory(selected_stock):
+        price = predictor.load_existing_model(data,selected_stock)
+    else:
+        price = predictor.create_new_model(data,selected_stock)
+    return price,sentiment_analysis_result
+ 
 st.write('---')
 st.header("Prediction")
-if selected_stock != None:
-    sentiment_analysis_result = sentiment_analyzer.Analysis(selected_stock)
-st.write(sentiment_analysis_result)
+if st.button("Predict"):
+    loading_message = st.success("Loading Model...")
+    if selected_stock != None:
+        price, sentiment_analysis_result = predict_price()
+    loading_message.success("Completed")
+    st.write(f"Tomorrow's Prediction : {price}")
+    st.write(sentiment_analysis_result)
+else:
+    st.write("Click the button above to run the prediction analysis")

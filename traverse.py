@@ -8,7 +8,7 @@ class Traverse:
         self.path = os.walk("models")
         self.model_files = []
         self.init_files()
-        self.limit = 10
+        self.limit = 20
     
     def init_files(self):
         for root, directories, files in self.path:
@@ -16,7 +16,7 @@ class Traverse:
     
     def is_file_in_directory(self,ticker):
         self.init_files()
-        if f"{ticker}.h5" in self.model_files:
+        if (f"{ticker}.json" in self.model_files) and (f"{ticker}.h5" in self.model_files):
             return True
         else:
             return False
@@ -35,12 +35,12 @@ class Traverse:
     def traverse(self,ticker):
         self.init_files()
         if self.is_file_in_directory(ticker):
-            path_ = os.path.join(os.getcwd(),"models",f"{ticker}.h5")
+            path_ = os.path.join(os.getcwd(),"models",f"{ticker}.json")
             file_time = os.path.getctime(path_)
             file_time = int(datetime.fromtimestamp(file_time).strftime('%d'))
             now_time = int(datetime.now().strftime("%d"))
             if file_time < now_time:
-                os.remove(os.path.join(os.getcwd(),"models",f"{ticker}.h5"))
+                os.remove(os.path.join(os.getcwd(),"models",f"{ticker}.json"))
         else:
             if len(self.model_files) < self.limit:
                 return
