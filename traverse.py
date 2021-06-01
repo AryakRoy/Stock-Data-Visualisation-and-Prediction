@@ -29,7 +29,9 @@ class Traverse:
         oldest_time = min(times.values())
         for file in times.keys():
             if times[file] == oldest_time:
-                os.remove(os.path.join(os.getcwd(),"models",file))
+                [name,extension] = file.split('.')
+                os.remove(os.path.join(os.getcwd(),"models",f"{name}.json"))
+                os.remove(os.path.join(os.getcwd(),"models",f"{name}.h5"))
                 break
 
     def traverse(self,ticker):
@@ -37,12 +39,17 @@ class Traverse:
         if self.is_file_in_directory(ticker):
             path_ = os.path.join(os.getcwd(),"models",f"{ticker}.json")
             file_time = os.path.getctime(path_)
-            file_time = int(datetime.fromtimestamp(file_time).strftime('%d'))
-            now_time = int(datetime.now().strftime("%d"))
-            if file_time < now_time:
+            file_time = datetime.fromtimestamp(file_time)
+            now_time = datetime.now()
+            if (now_time - file_time).days > 10:
                 os.remove(os.path.join(os.getcwd(),"models",f"{ticker}.json"))
+                os.remove(os.path.join(os.getcwd(),"models",f"{ticker}.h5"))
+                return False
+            else:
+                return True
         else:
             if len(self.model_files) < self.limit:
-                return
+                pass
             else:
                 self.remove_files()
+            return False

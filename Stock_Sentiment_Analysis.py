@@ -38,12 +38,12 @@ class Sentiment_Analyzer:
         import statistics
         m = statistics.mean(pol_scores)
         if m == 0.0:
-            return 'Neutral'
+            return 'No Change'
         elif m > 0 and m <= 0.5 :
-            return 'Positive'
+            return 'Upwards 📈'
         elif m > 0.5 : 
-            return 'Highly Positive'
+            return 'Highly Upwards 📈'
         elif m < 0 and m >= -0.5 : 
-            return 'Negative'
+            return 'Downwards 📉'
         else : 
-            return 'Highly Negative'
+            return 'Highly Downwards 📉'
