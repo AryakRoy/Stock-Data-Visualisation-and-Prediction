@@ -1,6 +1,6 @@
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import pandas as pd
 
 class Sentiment_Analyzer:
