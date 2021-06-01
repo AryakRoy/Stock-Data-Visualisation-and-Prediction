@@ -1,12 +1,8 @@
 # Stock Sensei <img src="https://media1.giphy.com/media/f67U9Xc53i4ViUs5T2/giphy.gif?cid=ecf05e47slag2fswzcfl97umavktcry565bu3pzjlfjqrqb4&rid=giphy.gif&ct=g" width="25px">
 
----
-
 > A Stock Analysis and Visualization Web Application
 
 ## What is Stock Sensei ?
-
----
 
 A Stock Analysis and Visualization Web Application Developed and Deployed using [Streamlit](https://streamlit.io/).
 
@@ -17,8 +13,6 @@ Check Out the Project Right here 👇🏼
 
 ## Development Stack
 
----
-
 - [yfinance](https://finance.yahoo.com/)
 - [Streamlit](https://streamlit.io/)
 - [TensorFlow](https://www.tensorflow.org/)
@@ -28,8 +22,6 @@ Check Out the Project Right here 👇🏼
 - [Plotly](https://plotly.com/)
 
 ## Installation
-
----
 
 - Clone the Project
 
@@ -46,8 +38,6 @@ pip install requirements.txt
 ```
 
 ## Developer
-
----
 
 👨‍💻 Aryak Roy [@AryakRoy](https://github.com/AryakRoy)
 
