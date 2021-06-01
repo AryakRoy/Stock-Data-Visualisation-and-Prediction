@@ -1,4 +1,4 @@
-# Stock Sensei <img src="https://media1.giphy.com/media/f67U9Xc53i4ViUs5T2/giphy.gif?cid=ecf05e47slag2fswzcfl97umavktcry565bu3pzjlfjqrqb4&rid=giphy.gif&ct=g" width="25px">
+# Stock Sensei <img src="https://media1.giphy.com/media/f67U9Xc53i4ViUs5T2/giphy.gif" width="25px">
 
 > A Stock Analysis and Visualization Web Application
 
@@ -17,8 +17,8 @@ Check Out the Project Right here 👇🏼
 - [Streamlit](https://streamlit.io/)
 - [TensorFlow](https://www.tensorflow.org/)
 - [vaderSentiment](https://pypi.org/project/vaderSentiment/)
-- [Pandas]
-- [Numpy]
+- [Pandas](https://pandas.pydata.org/)
+- [Numpy](https://numpy.org/)
 - [Plotly](https://plotly.com/)
 
 ## Installation
