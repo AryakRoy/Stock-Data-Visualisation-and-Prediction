@@ -8,7 +8,7 @@ A Stock Analysis and Visualization Web Application Developed and Deployed using 
 
 It can visualise Stock Data in the form of Interactive Charts and forecast Stock Prices using LSTM Model and Current News Sentiment Analysis.
 
-Check Out the Project Right here 👇🏼
+Check Out the Project Right here 👉🏼
 [Stock Sensei](https://share.streamlit.io/aryakroy/stock-sensei/main/main.py)
 
 ## Development Stack
