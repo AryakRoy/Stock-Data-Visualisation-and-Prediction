@@ -1,4 +1,4 @@
-# Stock Sensei <img src="https://media1.giphy.com/media/f67U9Xc53i4ViUs5T2/giphy.gif" width="25px">
+# Stock Sensei <img src="https://media1.giphy.com/media/f67U9Xc53i4ViUs5T2/giphy.gif" width="30px">
 
 > A Stock Analysis and Visualization Web Application
 
