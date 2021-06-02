@@ -101,7 +101,8 @@ if selected_stock != None:
     string_logo = f"<img src={stock_details.info['logo_url']}>"
     st.markdown(string_logo,unsafe_allow_html=True)
     st.header(stock_details.info["longName"])
-    st.info(stock_details.info["longBusinessSummary"])
+    with st.beta_expander(label="Comapny Description"):
+        st.info(stock_details.info["longBusinessSummary"])
     container = st.beta_container()
     col1, col2 = container.beta_columns([5,5])
 
@@ -125,8 +126,8 @@ if data.empty == False:
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name="stock_close"))
         fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name="stock_open"))
-        fig.layout.update(title_text="Time Series Chart", xaxis_rangeslider_visible=True,yaxis_title="USD $",width=1200, height = 800)
-        st.plotly_chart(fig)
+        fig.layout.update(title_text="Time Series Chart", xaxis_rangeslider_visible=True,yaxis_title="USD $")
+        st.plotly_chart(fig,use_container_width=True)
     plot_raw_data()
 
 if processed_data.empty == False:
@@ -134,22 +135,22 @@ if processed_data.empty == False:
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=processed_data['Date'], y=processed_data['Signal'], name="Signal"))
         fig.add_trace(go.Scatter(x=processed_data['Date'], y=processed_data['MACD'], name="MACD"))
-        fig.layout.update(title_text="Signal - MACD Chart", xaxis_rangeslider_visible=True,yaxis_title="USD $",width=1200, height = 800)
-        st.plotly_chart(fig)
+        fig.layout.update(title_text="Signal - MACD Chart", xaxis_rangeslider_visible=True,yaxis_title="USD $")
+        st.plotly_chart(fig,use_container_width=True)
 
     def plot_SMA_EMA():
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=processed_data['Date'], y=processed_data['Close'], name="stock_close"))
         fig.add_trace(go.Scatter(x=processed_data['Date'], y=processed_data['SMA'], name="SMA"))
         fig.add_trace(go.Scatter(x=processed_data['Date'], y=processed_data['EMA'], name="EMA"))
-        fig.layout.update(title_text="SMA - EMA Chart", xaxis_rangeslider_visible=True,yaxis_title="USD $",width=1200, height = 800)
-        st.plotly_chart(fig)
+        fig.layout.update(title_text="SMA - EMA Chart", xaxis_rangeslider_visible=True,yaxis_title="USD $")
+        st.plotly_chart(fig,use_container_width=True)
     
     def plot_RSI():
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=processed_data['Date'], y=processed_data['RSI'], name="RSI"))
-        fig.layout.update(title_text="RSI Chart", xaxis_rangeslider_visible=True,yaxis_title="USD $",width=1200, height = 800)
-        st.plotly_chart(fig)
+        fig.layout.update(title_text="RSI Chart", xaxis_rangeslider_visible=True,yaxis_title="USD $")
+        st.plotly_chart(fig,use_container_width=True)
         
     plot_Signal_MACD()
     plot_SMA_EMA()
