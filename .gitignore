@@ -29,8 +29,9 @@ target/
 # Python
 *.pyc
 *.egg-info
-__pycache__
+.__pycache__
 .ipynb_checkpoints
+ipynb_checkpoints/
 .Python
 dist/
 .python-version
