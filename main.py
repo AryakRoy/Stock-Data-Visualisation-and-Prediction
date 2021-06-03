@@ -151,9 +151,9 @@ if processed_data.empty == False:
         fig.add_trace(go.Scatter(x=processed_data['Date'], y=processed_data['RSI'], name="RSI"))
         fig.layout.update(title_text="RSI Chart", xaxis_rangeslider_visible=True,yaxis_title="USD $")
         st.plotly_chart(fig,use_container_width=True)
-        
-    plot_Signal_MACD()
+    
     plot_SMA_EMA()
+    plot_Signal_MACD()
     plot_RSI()
 
 def predict_price(selected_stock,data):
