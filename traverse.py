@@ -41,7 +41,7 @@ class Traverse:
             file_time = os.path.getctime(path_)
             file_time = datetime.fromtimestamp(file_time)
             now_time = datetime.now()
-            if (now_time - file_time).days > 10:
+            if (now_time - file_time).days > 1:
                 os.remove(os.path.join(os.getcwd(),"models",f"{ticker}.json"))
                 os.remove(os.path.join(os.getcwd(),"models",f"{ticker}.h5"))
                 return False
