@@ -74,7 +74,7 @@ selected_sectors = st.sidebar.multiselect('Sector',sorted_sector_unique)
 df_selected_sectors = df[df['GICS Sector'].isin(selected_sectors)]
 st.sidebar.write(f"Companies : {df_selected_sectors.shape[0] or df.shape[0]}")
 
-START =st.sidebar.date_input(label="Enter Start Date",value=datetime.date(2016,1,1))
+START =st.sidebar.date_input(label="Enter Start Date",value=datetime.date(2017,1,1))
 TODAY = datetime.date.today().strftime("%Y-%m-%d")
 
 if len(selected_sectors) != 0:
