@@ -37,8 +37,13 @@ class Predictor:
         model_json = model.to_json()
         save_path = os.path.join(os.getcwd(),"models",f"{ticker}.json")
         save_path_2 = os.path.join(os.getcwd(),"models",f"{ticker}.h5")
-        with open(save_path, "w") as json_file:
-            json_file.write(model_json)
+        try:
+            with open(save_path, "w") as json_file:
+                json_file.write(model_json)
+        except FileNotFoundError:
+            os.mkdir(os.path.join(os.getcwd(),"models"))
+            with open(save_path, "w") as json_file:
+                json_file.write(model_json)
         model.save_weights(save_path_2)
 
         last_60_days = data[-60:].values
